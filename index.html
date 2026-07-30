@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Floating Names Matrix</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+overflow:hidden;
+background:#000;
+height:100vh;
+}
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:0;
+}
+
+#floatingNames{
+position:absolute;
+width:100%;
+height:100%;
+overflow:hidden;
+z-index:2;
+pointer-events:none;
+}
+
+.name{
+    position:absolute;
+    font-size:12px;
+    font-weight:600;
+    white-space:nowrap;
+    color:#ff4040;
+    opacity:0;
+
+    text-shadow:
+        0 0 5px #ff0000,
+        0 0 10px #ff0000;
+
+    animation:fly 10s linear forwards;
+    will-change:transform,opacity;
+}
+
+@keyframes fly{
+
+    0%{
+        transform:
+            translateY(105vh)
+            translateX(0)
+            rotate(-8deg)
+            scale(.7);
+        opacity:0;
+    }
+
+    10%{
+        opacity:.8;
+    }
+
+    40%{
+        transform:
+            translateY(55vh)
+            translateX(15px)
+            rotate(3deg)
+            scale(.9);
+    }
+
+    70%{
+        transform:
+            translateY(15vh)
+            translateX(-20px)
+            rotate(-3deg)
+            scale(1);
+        opacity:.7;
+    }
+
+    100%{
+        transform:
+            translateY(-15vh)
+            translateX(30px)
+            rotate(8deg)
+            scale(1.05);
+        opacity:0;
+    }
+
+}
+
+
+
+.logo{
+
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+z-index:5;
+text-align:center;
+
+}
+.logo-grid{
+    position:absolute;
+    top:42%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    z-index:5;
+
+    display:grid;
+    grid-template-columns:repeat(7,80px);
+    gap:18px;
+
+    justify-content:center;
+    align-items:center;
+}
+
+.logo-grid img{
+    width:70px;
+    height:70px;
+    object-fit:contain;
+
+    padding:6px;
+    background:rgba(255,255,255,.05);
+
+    border:3px solid #ff0000;
+    border-radius:12px;
+
+    box-shadow:
+        0 0 10px #ff0000,
+        0 0 20px #ff0000;
+
+    transition:.3s;
+}
+
+.logo-grid img:hover{
+    transform:scale(1.15);
+    box-shadow:
+        0 0 20px #ff0000,
+        0 0 40px #ff0000;
+}
+
+.judul{
+  .judul{
+    position:absolute;
+    bottom:35px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:10;
+
+    color:#ff3333;
+    font-size:34px;
+    font-weight:700;
+    letter-spacing:2px;
+
+    font-family:Consolas, monospace;
+
+    text-shadow:
+        0 0 10px #ff0000,
+        0 0 25px #ff0000;
+
+    white-space:nowrap;
+}
+
+.judul::after{
+    content:"|";
+    animation:cursor .8s infinite;
+}
+
+@keyframes cursor{
+    50%{
+        opacity:0;
+    }
+}
+}
+.logo img{
+
+width:180px;
+height:180px;
+object-fit:contain;
+border-radius:20px;
+border:4px solid #ff0000;
+background:rgba(255,255,255,0.05);
+padding:10px;
+box-shadow:
+0 0 15px #ff0000,
+0 0 30px #ff0000,
+0 0 50px #ff0000;
+
+}
+.logo h1{
+
+margin-top:20px;
+font-size:40px;
+color:white;
+letter-spacing:4px;
+text-shadow:0 0 20px cyan;
+
+}
+
+.logo-container{
+    position:absolute;
+    top:45%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    display:flex;
+    gap:18px;
+    justify-content:center;
+    align-items:center;
+    z-index:5;
+    flex-wrap:nowrap;
+}
+
+.logo-container img{
+
+    width:70px;
+    height:70px;
+    object-fit:contain;
+
+    border:3px solid #ff0000;
+    border-radius:12px;
+
+    background:rgba(255,255,255,.05);
+
+    padding:5px;
+
+    box-shadow:
+    0 0 10px #ff0000,
+    0 0 20px #ff0000,
+    0 0 35px #ff0000;
+
+    transition:.3s;
+
+}
+
+.logo-container img:hover{
+
+    transform:scale(1.2) rotate(8deg);
+
+}
+
+.judul{
+
+    position:absolute;
+    top:60%;
+    width:100%;
+    text-align:center;
+
+    color:white;
+
+    font-size:42px;
+    font-weight:bold;
+    letter-spacing:5px;
+
+    text-shadow:
+    0 0 15px #ff0000,
+    0 0 35px #ff0000;
+
+    z-index:5;
+
+}
+
+.control{
+
+position:fixed;
+top:20px;
+right:20px;
+z-index:10;
+display:flex;
+gap:10px;
+
+}
+
+button{
+
+padding:12px 18px;
+border:none;
+border-radius:40px;
+background:#00ff99;
+cursor:pointer;
+font-weight:bold;
+
+}
+
+button:hover{
+
+transform:scale(1.08);
+
+}
+.logo-slider{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:220px;
+    height:220px;
+    z-index:5;
+}
+
+.logo-slider img{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%) scale(.2);
+
+    width:180px;
+    height:180px;
+    object-fit:contain;
+
+    opacity:0;
+
+    background:rgba(255,255,255,.08);
+    padding:8px;
+    border-radius:18px;
+
+    box-shadow:
+        0 0 20px #ff0000,
+        0 0 40px #ff0000,
+        0 0 80px #ff0000;
+
+    animation:logoAnim 28s linear infinite;
+}
+
+/* Delay tiap logo */
+.logo-slider img:nth-child(1){animation-delay:0s;}
+.logo-slider img:nth-child(2){animation-delay:2s;}
+.logo-slider img:nth-child(3){animation-delay:4s;}
+.logo-slider img:nth-child(4){animation-delay:6s;}
+.logo-slider img:nth-child(5){animation-delay:8s;}
+.logo-slider img:nth-child(6){animation-delay:10s;}
+.logo-slider img:nth-child(7){animation-delay:12s;}
+.logo-slider img:nth-child(8){animation-delay:14s;}
+.logo-slider img:nth-child(9){animation-delay:16s;}
+.logo-slider img:nth-child(10){animation-delay:18s;}
+.logo-slider img:nth-child(11){animation-delay:20s;}
+.logo-slider img:nth-child(12){animation-delay:22s;}
+.logo-slider img:nth-child(13){animation-delay:24s;}
+.logo-slider img:nth-child(14){animation-delay:26s;}
+
+/* Animasi Logo */
+@keyframes logoAnim{
+
+    0%{
+        opacity:0;
+        transform:translate(-50%,-50%) scale(.1) rotateY(90deg);
+        filter:blur(20px);
+    }
+
+    8%{
+        opacity:1;
+        transform:translate(-50%,-50%) scale(1.15) rotateY(0deg);
+        filter:blur(0);
+    }
+
+    14%{
+        opacity:1;
+        transform:translate(-50%,-50%) scale(1);
+    }
+
+    20%{
+        opacity:0;
+        transform:translate(-50%,-50%) scale(2.2);
+        filter:blur(10px);
+    }
+
+    100%{
+        opacity:0;
+        transform:translate(-50%,-50%) scale(2.2);
+    }
+
+}
+
+/* Judul */
+.judul{
+    position:absolute;
+    bottom:40px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:6;
+
+    color:#fff;
+    font-size:42px;
+    font-weight:800;
+    letter-spacing:5px;
+
+    text-shadow:
+        0 0 15px #ff0000,
+        0 0 35px #ff0000;
+}
+</style>
+
+</head>
+
+<body>
+
+<canvas id="matrix"></canvas>
+
+<div class="logo">
+
+    <div class="logo-slider">
+        <img src="kwarnas.png" alt="Logo KWARNAS">
+        <img src="kwarnas.png" alt="Logo KWARNAS">
+        <img src="kwarnas.png" alt="Logo KWARNAS">
+        <img src="kwarnas.png" alt="Logo KWARNAS">
+        <img src="kwarnas.png" alt="Logo KWARNAS">
+        <img src="kwarnas.png" alt="Logo KWARNAS">
+        <img src="kwarnas.png" alt="Logo KWARNAS">
+        <img src="kwarnas.png" alt="Logo KWARNAS">
+        <img src="kwarnas.png" alt="Logo KWARNAS">
+        <img src="kwarnas.png" alt="Logo KWARNAS">
+        <img src="kwarnas.png" alt="Logo KWARNAS">
+        <img src="kwarnas.png" alt="Logo KWARNAS">
+        <img src="kwarnas.png" alt="Logo KWARNAS">
+        <img src="kwarnas.png" alt="Logo KWARNAS">
+    </div>
+
+    <h1 class="judul">
+        <span id="typingText"></span>
+    </h1>
+
+</div>
+
+<div id="floatingNames"></div>
+
+<div class="control">
+    <button onclick="musik()">🎵 Musik</button>
+    <button onclick="fullscreen()">⛶ Fullscreen</button>
+    <button onclick="bukaHalaman()">🔐 Masuk Data</button>
+</div>
+
+<audio id="audio" loop>
+    <source src="MUSIK.mp3.mp3" type="audio/mpeg">
+</audio>
+
+<script src="script.js"></script>
+
+</body>
+
+<script>
+
+   
+// =========================================
+// MATRIX HUJAN NAMA MERAH
+// =========================================
+
+const canvas = document.getElementById("matrix");
+const ctx = canvas.getContext("2d");
+
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+
+resizeCanvas();
+
+const matrixNames = [
+    "ZHAURA SABRIANI BALQIS",
+    "AGUS ERIK VELIKSIA ARDIANA",
+    "DWI CHIKA ANANTA",
+    "DILLA NUR FADILLAH",
+    "RA'ID ABDULLAH",
+    "ZAILA MARSYA HAZIRA",
+    "AKHILA OCTAVIANA",
+    "TRI WIDURI FARADILLA",
+    "RACHEL INDAH CANTIKA",
+    "DEVIN RAFAEL",
+    "CALLISA AULIA PUTRI",
+    "AAM NURAJIZAH",
+    "DICKY SAEFULLOH",
+    "RIDHO PRATAMA NUGRAHA"
+];
+
+const fontSize = 18;
+const columnWidth = 220;
+
+let columns = Math.ceil(canvas.width / columnWidth);
+let drops = [];
+
+function resetDrops() {
+    columns = Math.ceil(canvas.width / columnWidth);
+    drops = [];
+
+    for (let i = 0; i < columns; i++) {
+        drops.push(Math.random() * canvas.height / fontSize);
+    }
+}
+
+resetDrops();
+
+function draw() {
+
+    ctx.fillStyle = "rgba(0,0,0,0.08)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.font = "bold 18px Poppins";
+    ctx.fillStyle = "#ff2222";
+    ctx.shadowColor = "#ff0000";
+    ctx.shadowBlur = 15;
+
+    for (let i = 0; i < columns; i++) {
+
+        const text = matrixNames[Math.floor(Math.random() * matrixNames.length)];
+
+        ctx.fillText(
+            text,
+            i * columnWidth,
+            drops[i] * fontSize
+        );
+
+        if (drops[i] * fontSize > canvas.height + 100) {
+            if (Math.random() > 0.97) {
+                drops[i] = -5;
+            }
+        }
+
+        drops[i] += 0.8;
+    }
+
+    ctx.shadowBlur = 0;
+}
+
+setInterval(draw, 40);
+
+// =========================================
+// RESPONSIVE
+// =========================================
+
+window.addEventListener("resize", () => {
+    resizeCanvas();
+    resetDrops();
+});
+
+// =========================================
+// ANIMASI TEKS
+// =========================================
+
+const teks = [
+    "Memulai Sistem...",
+    "Menghubungkan Server...",
+    "Mengambil Data Peserta...",
+    "Menginstal Data Siswa Kwarnas...",
+    "Menginstal Data Riwayat...",
+    "Menginstal Data Gugus Depan...",
+    "Menginstal Data Baru...",
+    "Sinkronisasi Database...",
+    "Memverifikasi Data...",
+    "Rekap Data Siswa...",
+    "Rekap Data Pembina...",
+    "Rekap Data Gudep...",
+    "Rekap Data Siswa VIII...",
+    "Rekap Data Ramu...",
+    "Rekap Data Rakit...",
+    "AYO KWARNAS"
+];
+
+const typing = document.getElementById("typingText");
+
+let index = 0;
+
+function tampilkanTeks() {
+
+    if (!typing) return;
+
+    typing.textContent = teks[index];
+
+    index++;
+
+    if (index >= teks.length) {
+        index = 0;
+    }
+
+}
+
+tampilkanTeks();
+
+setInterval(tampilkanTeks, 2000);
+
+// =========================================
+// NAMA MELAYANG
+// =========================================
+
+const names = [...matrixNames];
+
+const container = document.getElementById("floatingNames");
+
+function createName() {
+
+    if (!container) return;
+
+    const div = document.createElement("div");
+
+    div.className = "name";
+
+    div.innerHTML = names[Math.floor(Math.random() * names.length)];
+
+    div.style.left = Math.random() * 100 + "vw";
+    div.style.fontSize = (18 + Math.random() * 20) + "px";
+    div.style.animationDuration = (8 + Math.random() * 10) + "s";
+
+    div.style.color = "#ff3333";
+    div.style.textShadow =
+        "0 0 10px #ff0000,0 0 20px #ff0000,0 0 40px #ff0000";
+
+    container.appendChild(div);
+
+    setTimeout(() => {
+        div.remove();
+    }, 20000);
+}
+
+setInterval(createName, 500);
+
+// =========================================
+// MUSIK
+// =========================================
+
+const audio = document.getElementById("audio");
+
+function musik() {
+
+    if (!audio) return;
+
+    if (audio.paused) {
+        audio.play();
+    } else {
+        audio.pause();
+    }
+}
+
+// =========================================
+// FULLSCREEN
+// =========================================
+
+function fullscreen() {
+
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+    } else {
+        document.exitFullscreen();
+    }
+
+}
+
+function bukaHalaman() {
+
+    const password = prompt("Masukkan Password:");
+
+    if (password === "KWARNAS2026") {
+        window.location.href = "https://nesasinkuberaksi-source.github.io/DKP2027-2028/"; // ganti dengan nama file tujuan
+    } else if (password !== null) {
+        alert("❌ Password salah!");
+    }
+
+}
+</script>
+
+</body>
+</html>
